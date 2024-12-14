@@ -11,5 +11,15 @@ export default defineConfig({
         alias: {
             '@': resolve('src'), // 将 @ 映射到 src 目录
         }
-    }
+    },
+    server: {
+        proxy: {
+            // 代理所有请求
+            '/': {
+                target: 'http://localhost:9000/admin',  // 目标服务器的地址
+                changeOrigin: true,               // 允许跨域
+                rewrite: (path) => path,          // 不修改路径，直接代理
+            },
+        },
+    },
 })
